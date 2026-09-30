@@ -194,9 +194,9 @@
                 <label for="carModel">車型 (必選)</label>
                 <select id="carModel" onchange="onCarModelChange()">
                     <option value="">-- 請選擇車型 --</option>
-                    <option value="卡旺 單廂">卡旺 單廂</option>
-                    <option value="卡旺 大單廂">卡旺 大單廂</option>
-                    <option value="卡旺 雙廂">卡旺 雙廂</option>
+                    <option value="單廂">單廂</option>
+                    <option value="大單廂">大單廂</option>
+                    <option value="雙廂">雙廂</option>
                 </select>
                 <div class="alert" id="model-mismatch-alert">⚠️ 警告：手選車型與車身碼第6碼判斷之車型不符！</div>
             </div>
@@ -318,24 +318,24 @@
 // 卡旺隔熱紙資料庫
 const DATABASE = [
   // 前擋
-  {"brand": "Smith", "part_type": "前擋", "series": "Bella系列", "part_no": "99PVYKAW122", "raw_cars": "卡旺全車型", "cars": ["卡旺 單廂", "卡旺 大單廂", "卡旺 雙廂"], "vlt_display": "Bella 70"},
-  {"brand": "FSK", "part_type": "前擋", "series": "KS系列", "part_no": "99PVYKAWFSK122", "raw_cars": "卡旺全車型", "cars": ["卡旺 單廂", "卡旺 大單廂", "卡旺 雙廂"], "vlt_display": "KS 78"},
-  {"brand": "3M", "part_type": "前擋", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M122", "raw_cars": "卡旺全車型", "cars": ["卡旺 單廂", "卡旺 大單廂", "卡旺 雙廂"], "vlt_display": "P 70"},
+  {"brand": "Smith", "part_type": "前擋", "series": "Bella系列", "part_no": "99PVYKAW122", "raw_cars": "卡旺全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "Bella 70"},
+  {"brand": "FSK", "part_type": "前擋", "series": "KS系列", "part_no": "99PVYKAWFSK122", "raw_cars": "卡旺全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "KS 78"},
+  {"brand": "3M", "part_type": "前擋", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M122", "raw_cars": "卡旺全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "P 70"},
 
   // 車身 - 單廂
-  {"brand": "Smith", "part_type": "車身", "series": "Bella系列", "part_no": "99PVYKAW120S", "raw_cars": "卡旺 單廂", "cars": ["卡旺 單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["05", "15", "30", "40", "70"]},
-  {"brand": "FSK", "part_type": "車身", "series": "KS系列", "part_no": "99PVYKAWFSK120S", "raw_cars": "卡旺 單廂", "cars": ["卡旺 單廂"], "front_vlts": ["40"], "rear_vlts": ["20", "40"]},
-  {"brand": "3M", "part_type": "車身", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M120S", "raw_cars": "卡旺 單廂", "cars": ["卡旺 單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["18", "35", "40", "70"]},
+  {"brand": "Smith", "part_type": "車身", "series": "Bella系列", "part_no": "99PVYKAW120S", "raw_cars": "單廂", "cars": ["單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["05", "15", "30", "40", "70"]},
+  {"brand": "FSK", "part_type": "車身", "series": "KS系列", "part_no": "99PVYKAWFSK120S", "raw_cars": "單廂", "cars": ["單廂"], "front_vlts": ["40"], "rear_vlts": ["20", "40"]},
+  {"brand": "3M", "part_type": "車身", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M120S", "raw_cars": "單廂", "cars": ["單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["18", "35", "40", "70"]},
 
   // 車身 - 大單廂
-  {"brand": "Smith", "part_type": "車身", "series": "Bella系列", "part_no": "99PVYKAW120K", "raw_cars": "卡旺 大單廂", "cars": ["卡旺 大單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["05", "15", "30", "40", "70"]},
-  {"brand": "FSK", "part_type": "車身", "series": "KS系列", "part_no": "99PVYKAWFSK120K", "raw_cars": "卡旺 大單廂", "cars": ["卡旺 大單廂"], "front_vlts": ["40"], "rear_vlts": ["20", "40"]},
-  {"brand": "3M", "part_type": "車身", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M120K", "raw_cars": "卡旺 大單廂", "cars": ["卡旺 大單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["18", "35", "40", "70"]},
+  {"brand": "Smith", "part_type": "車身", "series": "Bella系列", "part_no": "99PVYKAW120K", "raw_cars": "大單廂", "cars": ["大單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["05", "15", "30", "40", "70"]},
+  {"brand": "FSK", "part_type": "車身", "series": "KS系列", "part_no": "99PVYKAWFSK120K", "raw_cars": "大單廂", "cars": ["大單廂"], "front_vlts": ["40"], "rear_vlts": ["20", "40"]},
+  {"brand": "3M", "part_type": "車身", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M120K", "raw_cars": "大單廂", "cars": ["大單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["18", "35", "40", "70"]},
 
   // 車身 - 雙廂
-  {"brand": "Smith", "part_type": "車身", "series": "Bella系列", "part_no": "99PVYKAW120D", "raw_cars": "卡旺 雙廂", "cars": ["卡旺 雙廂"], "front_vlts": ["40", "70"], "rear_vlts": ["05", "15", "30", "40", "70"]},
-  {"brand": "FSK", "part_type": "車身", "series": "KS系列", "part_no": "99PVYKAWFSK120D", "raw_cars": "卡旺 雙廂", "cars": ["卡旺 雙廂"], "front_vlts": ["40"], "rear_vlts": ["20", "40"]},
-  {"brand": "3M", "part_type": "車身", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M120D", "raw_cars": "卡旺 雙廂", "cars": ["卡旺 雙廂"], "front_vlts": ["40", "70"], "rear_vlts": ["18", "35", "40", "70"]}
+  {"brand": "Smith", "part_type": "車身", "series": "Bella系列", "part_no": "99PVYKAW120D", "raw_cars": "雙廂", "cars": ["雙廂"], "front_vlts": ["40", "70"], "rear_vlts": ["05", "15", "30", "40", "70"]},
+  {"brand": "FSK", "part_type": "車身", "series": "KS系列", "part_no": "99PVYKAWFSK120D", "raw_cars": "雙廂", "cars": ["雙廂"], "front_vlts": ["40"], "rear_vlts": ["20", "40"]},
+  {"brand": "3M", "part_type": "車身", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M120D", "raw_cars": "雙廂", "cars": ["雙廂"], "front_vlts": ["40", "70"], "rear_vlts": ["18", "35", "40", "70"]}
 ];
 
 const PART_TYPES_MAP = { "front": "前擋", "body": "車身" };
@@ -355,9 +355,9 @@ function onVinInput() {
     if (cleanedValue.length >= 6) {
         const char6 = cleanedValue.charAt(5);
         const carModelSelect = document.getElementById('carModel');
-        if (char6 === 'X') carModelSelect.value = "卡旺 單廂";
-        else if (char6 === 'Y') carModelSelect.value = "卡旺 雙廂";
-        else if (char6 === 'Z') carModelSelect.value = "卡旺 大單廂";
+        if (char6 === 'X') carModelSelect.value = "單廂";
+        else if (char6 === 'Y') carModelSelect.value = "雙廂";
+        else if (char6 === 'Z') carModelSelect.value = "大單廂";
     }
 
     onCarModelChange();
@@ -371,9 +371,9 @@ function checkVinModelMismatch() {
     if (vin.length >= 6 && carModel) {
         const char6 = vin.charAt(5);
         let expectedModel = "";
-        if (char6 === 'X') expectedModel = "卡旺 單廂";
-        else if (char6 === 'Y') expectedModel = "卡旺 雙廂";
-        else if (char6 === 'Z') expectedModel = "卡旺 大單廂";
+        if (char6 === 'X') expectedModel = "單廂";
+        else if (char6 === 'Y') expectedModel = "雙廂";
+        else if (char6 === 'Z') expectedModel = "大單廂";
 
         if (expectedModel && expectedModel !== carModel) {
             alertElem.style.display = 'block';
@@ -392,7 +392,7 @@ function onCarModelChange() {
     const singleContainer = document.getElementById('single-vlt-container');
     const doubleContainer = document.getElementById('double-vlt-container');
 
-    if (carModel === "卡旺 雙廂") {
+    if (carModel === "雙廂") {
         singleContainer.style.display = 'none';
         doubleContainer.style.display = 'grid';
     } else {
@@ -556,7 +556,7 @@ function updateNote() {
     if (bodyBs) {
         const [bBrand] = bodyBs.split('|');
 
-        if (carModel === "卡旺 雙廂") {
+        if (carModel === "雙廂") {
             const vltFront = document.getElementById('body-vlt-front').value;
             const vltRear = document.getElementById('body-vlt-rear').value;
 
@@ -636,7 +636,7 @@ function copyText(elementId) {
         const bodyBs = document.getElementById('body-brand-series').value;
         let isBodyComplete = false;
 
-        if (carModel === "卡旺 雙廂") {
+        if (carModel === "雙廂") {
             const bodyVltFront = document.getElementById('body-vlt-front').value;
             const bodyVltRear = document.getElementById('body-vlt-rear').value;
             isBodyComplete = bodyBs && bodyVltFront && bodyVltRear;
