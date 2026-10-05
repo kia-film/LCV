@@ -160,7 +160,7 @@
         }
         textarea {
             resize: vertical;
-            min-height: 180px;
+            min-height: 220px;
             font-size: 0.95rem;
             line-height: 1.5;
             background-color: #f8f9fa;
@@ -201,12 +201,28 @@
                 <div class="alert" id="model-mismatch-alert">⚠️ 警告：手選車型與車身碼第6碼判斷之車型不符！</div>
             </div>
             <div class="form-group">
+                <label for="carColor">車色 (選填)</label>
+                <select id="carColor" onchange="updateNote()">
+                    <option value="">-- 請選擇車色 --</option>
+                    <option value="白色">白色</option>
+                    <option value="藍色">藍色</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="salesRep">業代人員 (選填)</label>
+                <input type="text" id="salesRep" placeholder="例如：李大寶" oninput="updateNote()">
+            </div>
+            <div class="form-group">
                 <label for="location">存放(施工)地點 (必填)</label>
                 <input type="text" id="location" placeholder="例如：南港直營廠" oninput="updateNote()">
             </div>
+            <div class="form-group">
+                <label for="deliveryDate">交車日 (選填)</label>
+                <input type="date" id="deliveryDate" onchange="updateNote()">
+            </div>
             <div class="form-group" style="grid-column: 1 / -1;">
-                <label for="otherInfo">其他 (選填，例如交車日、補充事項)</label>
-                <input type="text" id="otherInfo" placeholder="例如：預計 10/25 交車、請留廢料" oninput="updateNote()">
+                <label for="otherInfo">補充事項 (選填)</label>
+                <input type="text" id="otherInfo" placeholder="例如：車主選日交車，可交車後再施工" oninput="updateNote()">
             </div>
         </div>
     </div>
@@ -318,9 +334,9 @@
 // 卡旺隔熱紙資料庫
 const DATABASE = [
   // 前擋
-  {"brand": "Smith", "part_type": "前擋", "series": "Bella系列", "part_no": "99PVYKAW122", "raw_cars": "卡旺全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "Bella 70"},
-  {"brand": "FSK", "part_type": "前擋", "series": "KS系列", "part_no": "99PVYKAWFSK122", "raw_cars": "卡旺全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "KS 78"},
-  {"brand": "3M", "part_type": "前擋", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M122", "raw_cars": "卡旺全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "P 70"},
+  {"brand": "Smith", "part_type": "前擋", "series": "Bella系列", "part_no": "99PVYKAW122", "raw_cars": "全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "Bella 70"},
+  {"brand": "FSK", "part_type": "前擋", "series": "KS系列", "part_no": "99PVYKAWFSK122", "raw_cars": "全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "KS 78"},
+  {"brand": "3M", "part_type": "前擋", "series": "8803 PLUS系列", "part_no": "99PVYKAW3M122", "raw_cars": "全車型", "cars": ["單廂", "大單廂", "雙廂"], "vlt_display": "P 70"},
 
   // 車身 - 單廂
   {"brand": "Smith", "part_type": "車身", "series": "Bella系列", "part_no": "99PVYKAW120S", "raw_cars": "單廂", "cars": ["單廂"], "front_vlts": ["40", "70"], "rear_vlts": ["05", "15", "30", "40", "70"]},
@@ -537,8 +553,17 @@ function updatePartInfo(partKey) {
 function updateNote() {
     const vin = document.getElementById('vin').value.trim().toUpperCase();
     const carModel = document.getElementById('carModel').value;
-    const location = document.getElementById('location').value;
-    const otherInfo = document.getElementById('otherInfo').value;
+    const carColor = document.getElementById('carColor').value;
+    const salesRep = document.getElementById('salesRep').value.trim();
+    const location = document.getElementById('location').value.trim();
+    const rawDeliveryDate = document.getElementById('deliveryDate').value;
+    const otherInfo = document.getElementById('otherInfo').value.trim();
+
+    // 格式化交車日日期 (YYYY/MM/DD)
+    let formattedDate = '';
+    if (rawDeliveryDate) {
+        formattedDate = rawDeliveryDate.replace(/-/g, '/');
+    }
 
     // 前擋文字
     const frontBs = document.getElementById('front-brand-series').value;
@@ -574,8 +599,8 @@ function updateNote() {
                     bodyStr = `車身：Bella ${vltFront}`;
                 } else {
                     let parts = [];
-                    if (vltFront) parts.push(`前窗Bella ${vltFront}`);
-                    if (vltRear) parts.push(`後窗Bella ${vltRear}`);
+                    if (vltFront) parts.push(`前窗 Bella ${vltFront}`);
+                    if (vltRear) parts.push(`後窗 Bella ${vltRear}`);
                     bodyStr = parts.length > 0 ? `車身：${parts.join('、')}` : '車身：Bella';
                 }
             } else if (bBrand === "FSK") {
@@ -604,10 +629,13 @@ function updateNote() {
     let lines = [
         `車身碼：${vin}`,
         `車型：${carModel}`,
+        `車色：${carColor}`,
+        `業代：${salesRep}`,
         `存放(施工)地點：${location}`,
         `${frontStr ? frontStr : '前擋：'}`,
         `${bodyStr ? bodyStr : '車身：'}`,
-        `其他：${otherInfo}`
+        `交車日：${formattedDate}`,
+        `補充事項：${otherInfo}`
     ];
 
     document.getElementById('finalNote').value = lines.join('\n');
